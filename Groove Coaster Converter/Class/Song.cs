@@ -33,6 +33,7 @@ namespace Groove_Coaster_Converter.Class
         public String inputOffset;
         public int previewStartMs;
         public int previewEndMs;
+        public int defaultVFX;
 
         public String additional_string;
         public List<Byte> additional_informations = new List<Byte>();
@@ -47,9 +48,9 @@ namespace Groove_Coaster_Converter.Class
         public Byte[] switch_flagLockedBeginner = { 0x01, 0x00 };
         public Byte[] GC2_flagLockedBeginner = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00 };
         public Byte[] GC4EX_flagLockedBeginner = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00 };
-        public Byte[] switch_flagUnknown = { 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 
-            0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE6, 0xDC, 0x00, 0x01, 
-            0x70, 0xC0, 0x01, 0x02, 0x00 };
+        public Byte[] switch_flagUnknown = { 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE6, 0xDC, 0x00, 0x01, 0x70, 0xC0,
+            0x01, 0x02, 0x00 };
         public Byte[] GC2_flagUnknown = { 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 0x64, 
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xAF, 0xC8, 0x01, 0x00 };
 
@@ -150,6 +151,10 @@ namespace Groove_Coaster_Converter.Class
                 additional_informations[18] = temp[1];
                 additional_informations[17] = temp[2];
                 additional_informations[16] = temp[3];
+
+                // Default VFX
+                defaultVFX = form_GCC.comboBox_DefaultVFX.SelectedIndex;
+                additional_informations[20] = (byte)defaultVFX;
 
                 // Flags
                 if (platform == 2)
@@ -288,6 +293,9 @@ namespace Groove_Coaster_Converter.Class
 
                 // Song Genre
                 genre = form_GCC.comboBox_songGenre.SelectedIndex;
+
+                // Default VFX
+                defaultVFX = form_GCC.comboBox_DefaultVFX.SelectedIndex;
 
                 // Song Timer
                 timer = form_GCC.textBox_songTimer.Text;
@@ -479,8 +487,9 @@ namespace Groove_Coaster_Converter.Class
                     additional_informations.AddRange(GC2_flagUnknown);
 
                 }
-                
 
+                // Default VFX
+                defaultVFX = additional_informations[20];
 
                 // Song BGM
                 
@@ -646,9 +655,9 @@ namespace Groove_Coaster_Converter.Class
                     //additional_informations.AddRange(GC2_flagUnknown);
                 }
 
+                // Default VFX
+                defaultVFX = additional_informations[20];
 
-
-                
                 if (merged)
                 {
                     BGM = "m_" + BGM;

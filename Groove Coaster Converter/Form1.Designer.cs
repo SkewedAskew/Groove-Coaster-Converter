@@ -72,6 +72,12 @@
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tab_AddSong = new System.Windows.Forms.TabPage();
             this.tab_SongEditor = new System.Windows.Forms.TabPage();
+            this.label26 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_previewEnd = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.textBox_previewStart = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.textBox_songBGM_ext8 = new System.Windows.Forms.TextBox();
             this.checkBox_DLC_Switch = new System.Windows.Forms.CheckBox();
             this.textBox_songBGM_ext7 = new System.Windows.Forms.TextBox();
@@ -87,6 +93,7 @@
             this.textBox_songData = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox_songGenre = new System.Windows.Forms.ComboBox();
+            this.comboBox_DefaultVFX = new System.Windows.Forms.ComboBox();
             this.numericUpDown_songDifficulty7 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_songDifficulty6 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_songDifficulty5 = new System.Windows.Forms.NumericUpDown();
@@ -152,11 +159,6 @@
             this.button_about = new System.Windows.Forms.Button();
             this.button_update_stageparam = new System.Windows.Forms.Button();
             this.button_createSong = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.textBox_previewStart = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.textBox_previewEnd = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox_StageEditor.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -167,6 +169,7 @@
             this.tabControl_Main.SuspendLayout();
             this.tab_AddSong.SuspendLayout();
             this.tab_SongEditor.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty5)).BeginInit();
@@ -181,7 +184,6 @@
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox_StageParam
@@ -585,6 +587,7 @@
             // tab_SongEditor
             // 
             this.tab_SongEditor.AutoScroll = true;
+            this.tab_SongEditor.Controls.Add(this.label26);
             this.tab_SongEditor.Controls.Add(this.groupBox1);
             this.tab_SongEditor.Controls.Add(this.textBox_songBGM_ext8);
             this.tab_SongEditor.Controls.Add(this.checkBox_DLC_Switch);
@@ -601,6 +604,7 @@
             this.tab_SongEditor.Controls.Add(this.textBox_songData);
             this.tab_SongEditor.Controls.Add(this.label11);
             this.tab_SongEditor.Controls.Add(this.comboBox_songGenre);
+            this.tab_SongEditor.Controls.Add(this.comboBox_DefaultVFX);
             this.tab_SongEditor.Controls.Add(this.numericUpDown_songDifficulty7);
             this.tab_SongEditor.Controls.Add(this.numericUpDown_songDifficulty6);
             this.tab_SongEditor.Controls.Add(this.numericUpDown_songDifficulty5);
@@ -647,6 +651,64 @@
             this.tab_SongEditor.Text = "Song Editor";
             this.tab_SongEditor.UseVisualStyleBackColor = true;
             this.tab_SongEditor.Click += new System.EventHandler(this.tab_SongEditor_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(120, 36);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(67, 13);
+            this.label26.TabIndex = 33;
+            this.label26.Text = "Default VFX:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox_previewEnd);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.textBox_previewStart);
+            this.groupBox1.Controls.Add(this.label24);
+            this.groupBox1.Location = new System.Drawing.Point(151, 190);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(187, 71);
+            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Preview (in ms)";
+            // 
+            // textBox_previewEnd
+            // 
+            this.textBox_previewEnd.Location = new System.Drawing.Point(81, 46);
+            this.textBox_previewEnd.Name = "textBox_previewEnd";
+            this.textBox_previewEnd.Size = new System.Drawing.Size(100, 20);
+            this.textBox_previewEnd.TabIndex = 5;
+            this.textBox_previewEnd.TextChanged += new System.EventHandler(this.textBox_ID_TextChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(39, 49);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(29, 13);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "End:";
+            this.label25.Click += new System.EventHandler(this.label_ID_Click);
+            // 
+            // textBox_previewStart
+            // 
+            this.textBox_previewStart.Location = new System.Drawing.Point(81, 20);
+            this.textBox_previewStart.Name = "textBox_previewStart";
+            this.textBox_previewStart.Size = new System.Drawing.Size(100, 20);
+            this.textBox_previewStart.TabIndex = 5;
+            this.textBox_previewStart.TextChanged += new System.EventHandler(this.textBox_ID_TextChanged);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(39, 23);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(32, 13);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "Start:";
+            this.label24.Click += new System.EventHandler(this.label_ID_Click);
             // 
             // textBox_songBGM_ext8
             // 
@@ -774,6 +836,16 @@
             this.comboBox_songGenre.Size = new System.Drawing.Size(100, 21);
             this.comboBox_songGenre.TabIndex = 23;
             this.comboBox_songGenre.SelectedIndexChanged += new System.EventHandler(this.comboBox_songGenre_SelectedIndexChanged);
+            // 
+            // comboBox_DefaultVFX
+            // 
+            this.comboBox_DefaultVFX.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_DefaultVFX.FormattingEnabled = true;
+            this.comboBox_DefaultVFX.Location = new System.Drawing.Point(193, 33);
+            this.comboBox_DefaultVFX.Name = "comboBox_DefaultVFX";
+            this.comboBox_DefaultVFX.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_DefaultVFX.TabIndex = 23;
+            this.comboBox_DefaultVFX.SelectedIndexChanged += new System.EventHandler(this.comboBox_defaultVFX_SelectedIndexChanged);
             // 
             // numericUpDown_songDifficulty7
             // 
@@ -1358,55 +1430,6 @@
             this.button_createSong.UseVisualStyleBackColor = true;
             this.button_createSong.Click += new System.EventHandler(this.button_createSong_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBox_previewEnd);
-            this.groupBox1.Controls.Add(this.label25);
-            this.groupBox1.Controls.Add(this.textBox_previewStart);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Location = new System.Drawing.Point(151, 190);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(187, 71);
-            this.groupBox1.TabIndex = 32;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Preview (in ms)";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(39, 23);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(32, 13);
-            this.label24.TabIndex = 4;
-            this.label24.Text = "Start:";
-            this.label24.Click += new System.EventHandler(this.label_ID_Click);
-            // 
-            // textBox_previewStart
-            // 
-            this.textBox_previewStart.Location = new System.Drawing.Point(81, 20);
-            this.textBox_previewStart.Name = "textBox_previewStart";
-            this.textBox_previewStart.Size = new System.Drawing.Size(100, 20);
-            this.textBox_previewStart.TabIndex = 5;
-            this.textBox_previewStart.TextChanged += new System.EventHandler(this.textBox_ID_TextChanged);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(39, 49);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(29, 13);
-            this.label25.TabIndex = 4;
-            this.label25.Text = "End:";
-            this.label25.Click += new System.EventHandler(this.label_ID_Click);
-            // 
-            // textBox_previewEnd
-            // 
-            this.textBox_previewEnd.Location = new System.Drawing.Point(81, 46);
-            this.textBox_previewEnd.Name = "textBox_previewEnd";
-            this.textBox_previewEnd.Size = new System.Drawing.Size(100, 20);
-            this.textBox_previewEnd.TabIndex = 5;
-            this.textBox_previewEnd.TextChanged += new System.EventHandler(this.textBox_ID_TextChanged);
-            // 
             // Form_GCC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1453,6 +1476,8 @@
             this.tab_AddSong.ResumeLayout(false);
             this.tab_SongEditor.ResumeLayout(false);
             this.tab_SongEditor.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_songDifficulty5)).EndInit();
@@ -1473,8 +1498,6 @@
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1527,6 +1550,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         public System.Windows.Forms.ComboBox comboBox_songGenre;
+        public System.Windows.Forms.ComboBox comboBox_DefaultVFX;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button_songDelete;
         public System.Windows.Forms.Label label_songsLoaded;
@@ -1609,6 +1633,7 @@
         private System.Windows.Forms.Label label25;
         public System.Windows.Forms.TextBox textBox_previewStart;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label26;
     }
 }
 

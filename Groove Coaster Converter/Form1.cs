@@ -30,6 +30,11 @@ namespace Groove_Coaster_Converter
         public String[] genres = new string[] {"Unknown",
             "Anime/Pop", "VOCALOID", "Music Games",
             "Game Music", "Misc.", "Original", "Touhou"  };
+        public String[] defaultVFX = new string[] { "Unknown",
+            "Basic", "Flower", "Fireworks", "Marbles", "Mid-Century",
+            "Infinity Gene", "Molecules", "Butterfly", "unk_silk", "8BIT",
+            "Brightness", "Hologram", "Heaven", "Snow", "unk_feather",
+            "unk_music", "Star", "Horror", "Heart" };
         List<TextBox> liste_TextBox_SHOT = new List<TextBox>();
         List<Button> liste_Button_SHOT = new List<Button>();
         public Form_GCC()
@@ -39,6 +44,7 @@ namespace Groove_Coaster_Converter
             liste_Button_SHOT.Add(button_FileSHOT);
             comboBox_Genres.Items.AddRange(genres);
             comboBox_songGenre.Items.AddRange(genres);
+            comboBox_DefaultVFX.Items.AddRange(defaultVFX);
             
             EnableDisable_UI_SHOT(false);
             //tabControl_Main.TabPages.Remove(tab_StageParamConverter);
@@ -51,6 +57,7 @@ namespace Groove_Coaster_Converter
             //listBox_StageParam.DataSource = liste;
             comboBox_Mode.SelectedIndex = 0;
             comboBox_Genres.SelectedIndex = 0;
+            comboBox_DefaultVFX.SelectedIndex = 0;
             comboBox_SystemStageParam.SelectedIndex = 0;
             textBox_StageParamBytes.Text = result;
 
@@ -160,6 +167,7 @@ namespace Groove_Coaster_Converter
             textBox_previewEnd.Text = songs[song_id].previewEndMs.ToString();
             textBox_songVer.Text = songs[song_id].inputOffset;
             comboBox_songGenre.SelectedIndex = songs[song_id].genre;
+            comboBox_DefaultVFX.SelectedIndex = songs[song_id].additional_informations[20];
             numericUpDown_songDifficulty1.Value = songs[song_id].difficulties[0];
             numericUpDown_songDifficulty2.Value = songs[song_id].difficulties[1];
             numericUpDown_songDifficulty3.Value = songs[song_id].difficulties[2];
@@ -834,6 +842,11 @@ namespace Groove_Coaster_Converter
         }
 
         private void comboBox_songGenre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox_defaultVFX_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
