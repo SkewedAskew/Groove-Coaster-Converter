@@ -1416,7 +1416,7 @@
             this.button_update_stageparam.Name = "button_update_stageparam";
             this.button_update_stageparam.Size = new System.Drawing.Size(137, 39);
             this.button_update_stageparam.TabIndex = 32;
-            this.button_update_stageparam.Text = "(SWITCH) \r\nUpdate to 1.0.10";
+            this.button_update_stageparam.Text = "Move selected to front";
             this.button_update_stageparam.UseVisualStyleBackColor = true;
             this.button_update_stageparam.Click += new System.EventHandler(this.button1_Click);
             // 

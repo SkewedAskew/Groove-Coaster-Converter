@@ -349,7 +349,15 @@ namespace Groove_Coaster_Converter.Programs
             {
 
                 List<Byte> bytes = new List<Byte>(File.ReadAllBytes(file));
-                bytes.RemoveRange((int)offsetStart-1, (int)(offsetEnd - offsetStart));
+                if (mode == 2)
+                {
+                    bytes.RemoveRange((int)offsetStart-2, (int)(offsetEnd - offsetStart));
+                }
+                else
+                {
+                    bytes.RemoveRange((int)offsetStart-1, (int)(offsetEnd - offsetStart));
+                }
+                
                 File.WriteAllBytes(file, bytes.ToArray());
 
                 BinaryWriter binWriter = new BinaryWriter(File.Open(file, FileMode.Open), Encoding.UTF8);
@@ -373,7 +381,8 @@ namespace Groove_Coaster_Converter.Programs
             }
             return true;
         }
-        public void writeBytes(String file, int Platform, int mode = 0, Song song = null, bool done=false)
+
+        public void writeBytes(String file, int Platform, int mode = 0, Song song = null, bool done=false, int newOffset = 0)
         {
             /*if(mode == 1)
             {
@@ -386,7 +395,7 @@ namespace Groove_Coaster_Converter.Programs
             File.Create(file).Close();
             BinaryWriter binWriter = new BinaryWriter(File.Open(file, FileMode.Open), Encoding.UTF8);
 
-            if(mode == 1 || (mode == 2 && done))
+            if(mode == 1 || (mode == 2 && done) || mode == 3)
             {
                 binWriter.Write((short)ReverseBytes(form_GCC.total_entries));
 
@@ -395,6 +404,10 @@ namespace Groove_Coaster_Converter.Programs
 
             try
             {
+                if (mode == 3)
+                {
+                    binWriter.Seek(newOffset, SeekOrigin.Begin);
+                }
 
                 // Song ID
                 binWriter.Write((UInt32)ReverseBytes(song.id));

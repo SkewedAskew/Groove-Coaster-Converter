@@ -870,17 +870,56 @@ namespace Groove_Coaster_Converter
         {
             if (StageParamLoaded())
             {
+                var length = songs.Count;
+                var index1 = song_id;
+                var index2 = songs.Count - 33;   // start of songlist
+                var temp1 = songs[index1].DeepCopy();
 
-                for (int i = 0; i < listBox_StageParam.Items.Count; i++)
+                // remove offset range from reader
+                Reader_StageParam reader = new Reader_StageParam();
+                reader.EraseBytes(textBox_StageParamInput.Text, songs[index1].rangeOffsets[0], songs[index1].rangeOffsets[1], 2);
+                
+                // reload songs
+                songs = reader.readBytes(textBox_StageParamInput.Text, comboBox_SystemStageParam.SelectedIndex);
+
+                // insert temp at length - 33
+                songs.Insert(index2, temp1);
+
+                // update index2 offsets
+                int shift = (int)(temp1.rangeOffsets[1] - temp1.rangeOffsets[0]);
+                songs[index2].rangeOffsets[0] = songs[index2 - 1].rangeOffsets[1];
+                songs[index2].rangeOffsets[1] = songs[index2 - 1].rangeOffsets[1] + shift;
+
+                // for each entry AFTER index2, move offsets forward
+                for(int i=index2+1; i < songs.Count; i++)
                 {
-                    listBox_StageParam.SelectedIndex = i;
-                    SelectSong();
-                    checkBox_DLC_Switch.Checked = false;
-                    button_Update_Click();
+                    songs[i].rangeOffsets[0] += shift;
+                    songs[i].rangeOffsets[1] += shift;
                 }
-                dlcConvert = false;
+
+                // find new starting offset of first song in list (index2)
+                var newOffset = (int)songs[index2].rangeOffsets[0];
+
+                // write temp bytes at new offset (seek to newOffset)
+                songs[index2].UpdateDatabase(3, false, "", false, newOffset);
+
+                // reload view
+                liste[listBox_StageParam.SelectedIndex] = songs[song_id].names[0];
+                liste[index2] = songs[index2].names[0];
+                listBox_StageParam.DataSource = null;
+                listBox_StageParam.DataSource = liste;
+
+                // old update functionality (disabled for now)
+                //for (int i = 0; i < listBox_StageParam.Items.Count; i++)
+                //{
+                //    listBox_StageParam.SelectedIndex = i;
+                //    SelectSong();
+                //    checkBox_DLC_Switch.Checked = false;
+                //    button_Update_Click();
+                //}
+                //dlcConvert = false;
             }
-            dlcConvert = false;
+            //dlcConvert = false;
         }
 
         private void checkBox_unlocked_CheckedChanged(object sender, EventArgs e)

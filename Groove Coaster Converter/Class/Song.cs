@@ -69,6 +69,84 @@ namespace Groove_Coaster_Converter.Class
             this.id = id;
         }
 
+        public Song DeepCopy()
+        {
+            var temp = new Song();
+            foreach(var data in this.additional_data)
+            {
+                temp.additional_data.Add(data);
+            }
+            foreach (var data in this.additional_informations)
+            {
+                temp.additional_informations.Add(data);
+            }
+            temp.additional_string = this.additional_string;
+            temp.author = this.author;
+            temp.BGM = this.BGM;
+            for(int i=0; i < temp.BGM_ext.Length; i++)
+            {
+                temp.BGM_ext[i] = this.BGM_ext[i];
+            }
+            temp.BPM = this.BPM;
+            temp.data = this.data;
+            temp.defaultVFX = this.defaultVFX;
+            foreach (var data in this.difficulties)
+            {
+                temp.difficulties.Add(data);
+            }
+            temp.dlc = this.dlc;
+            for (int i = 0; i < temp.extras.Length; i++)
+            {
+                temp.extras[i] = this.extras[i];
+            }
+            temp.form_GCC = this.form_GCC;
+            for (int i = 0; i < temp.gameData.Length; i++)
+            {
+                temp.gameData[i] = this.gameData[i];
+            }
+            for (int i = 0; i < temp.GC2_flagLockedBeginner.Length; i++)
+            {
+                temp.GC2_flagLockedBeginner[i] = this.GC2_flagLockedBeginner[i];
+            }
+            for (int i = 0; i < temp.GC2_flagUnknown.Length; i++)
+            {
+                temp.GC2_flagUnknown[i] = this.GC2_flagUnknown[i];
+            }
+            for (int i = 0; i < temp.GC4EX_flagLockedBeginner.Length; i++)
+            {
+                temp.GC4EX_flagLockedBeginner[i] = this.GC4EX_flagLockedBeginner[i];
+            }
+            temp.genre = this.genre;
+            temp.id = this.id;
+            temp.inputOffset = this.inputOffset;
+            for (int i = 0; i < temp.names.Length; i++)
+            {
+                temp.names[i] = this.names[i];
+            }
+            for (int i = 0; i < temp.offsets.Length; i++)
+            {
+                temp.offsets[i] = this.offsets[i];
+            }
+            temp.platform = this.platform;
+            temp.previewEndMs = this.previewEndMs;
+            temp.previewStartMs = this.previewStartMs;
+            for (int i = 0; i < temp.rangeOffsets.Length; i++)
+            {
+                temp.rangeOffsets[i] = this.rangeOffsets[i];
+            }
+            for (int i = 0; i < temp.switch_flagLockedBeginner.Length; i++)
+            {
+                temp.switch_flagLockedBeginner[i] = this.switch_flagLockedBeginner[i];
+            }
+            for (int i = 0; i < temp.switch_flagUnknown.Length; i++)
+            {
+                temp.switch_flagUnknown[i] = this.switch_flagUnknown[i];
+            }
+            temp.timer = this.timer;
+
+            return temp;
+        }
+
         public bool UpdateSong(int mode = 0)
         {
             try
@@ -218,10 +296,17 @@ namespace Groove_Coaster_Converter.Class
             }
         }
 
-        public void UpdateDatabase(int mode, bool newSP=false, string newFile="", bool done=false)
+        /// <summary>
+        /// Updates stageparam file
+        /// </summary>
+        /// <param name="mode">Update/New/Convert/Move</param>
+        /// <param name="newSP">New stageparam</param>
+        /// <param name="newFile">Filename to create</param>
+        /// <param name="done"></param>
+        /// <param name="newOffset">The starting offset of the newly-moved song</param>
+        public void UpdateDatabase(int mode, bool newSP=false, string newFile="", bool done=false, int newOffset = 0)
         {
             string file = "";
-            // Database Update
             if (newSP)
             {
                 file = newFile;
@@ -239,22 +324,28 @@ namespace Groove_Coaster_Converter.Class
             }
             List<Byte> newStageParam = new List<Byte>();
             newStageParam.AddRange(File.ReadAllBytes(file));
-
             
-            reader.writeBytes(file, platform, mode, this, done);
+            reader.writeBytes(file, platform, mode, this, done, newOffset);
             switch (mode)
             {
-                case 0:
+                case 0: // Update
                     newStageParam.InsertRange((int)rangeOffsets[0], File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + "temp.dat"));
                     break;
-
-                case 1:
+                case 1: // Create
                     newStageParam.RemoveRange(0, 2);
                     newStageParam.InsertRange(0, File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + "temp.dat"));
                     break;
-
-                case 2:
+                case 2: // Convert
                     newStageParam.InsertRange(0, File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + "temp.dat"));
+                    break;
+                case 3: // Move
+                    var remainingBytesAfterOffset = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + "temp.dat");
+                    List<byte> bytes = new List<byte>();
+                    for (int i = (int)rangeOffsets[0]; i < remainingBytesAfterOffset.Count(); i++)
+                    {
+                        bytes.Add(remainingBytesAfterOffset[i]);
+                    }
+                    newStageParam.InsertRange((int)rangeOffsets[0], bytes.ToArray());
                     break;
             }
 
