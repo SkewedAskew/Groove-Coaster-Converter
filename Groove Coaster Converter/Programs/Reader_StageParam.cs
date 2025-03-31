@@ -394,11 +394,14 @@ namespace Groove_Coaster_Converter.Programs
             file = AppDomain.CurrentDomain.BaseDirectory+"temp.dat";
             File.Create(file).Close();
             BinaryWriter binWriter = new BinaryWriter(File.Open(file, FileMode.Open), Encoding.UTF8);
-
-            if(mode == 1 || (mode == 2 && done) || mode == 3)
+            if (mode == 1)
+            {
+                var entries = (ushort)(form_GCC.total_entries + (ushort)1);
+                binWriter.Write((short)ReverseBytes(entries));
+            }
+            else if((mode == 2 && done) || mode == 3)
             {
                 binWriter.Write((short)ReverseBytes(form_GCC.total_entries));
-
             }
 
 

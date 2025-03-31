@@ -32,9 +32,9 @@ namespace Groove_Coaster_Converter
             "Game Music", "Misc.", "Original", "Touhou"  };
         public String[] defaultVFX = new string[] { "Unknown",
             "Basic", "Flower", "Fireworks", "Marbles", "Mid-Century",
-            "Infinity Gene", "Molecules", "Butterfly", "unk_silk", "8BIT",
-            "Brightness", "Hologram", "Heaven", "Snow", "unk_feather",
-            "unk_music", "Star", "Horror", "Heart" };
+            "Infinity Gene", "Molecules", "Butterfly", "Paisley", "8BIT",
+            "Brightness", "Hologram", "Heaven", "Snow", "Feather",
+            "Note", "Star", "Horror", "Heart" };
         List<TextBox> liste_TextBox_SHOT = new List<TextBox>();
         List<Button> liste_Button_SHOT = new List<Button>();
         public Form_GCC()
